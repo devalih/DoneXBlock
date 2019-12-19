@@ -30,6 +30,12 @@ class DoneXBlock(XBlock):
         default="left"
     )
 
+    time = Float(
+        scope=Scope.settings,
+        help="How much time (in seconds) to count before allowing the done key",
+        default="50"
+    )
+
     has_score = True
 
     # pylint: disable=unused-argument
@@ -73,7 +79,8 @@ class DoneXBlock(XBlock):
         frag.initialize_js("DoneXBlock", {'state': self.done,
                                           'unchecked': unchecked_png,
                                           'checked': checked_png,
-                                          'align': self.align.lower()})
+                                          'align': self.align.lower(),
+                                          'time': self.time})
         return frag
 
     def studio_view(self, _context=None):  # pylint: disable=unused-argument
